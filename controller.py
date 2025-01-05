@@ -192,7 +192,6 @@ class ProController:
             t = time.time()
             self._read()
             d = time.time() - t
-            print(d)
             if d < self.min_pause_time:
                 time.sleep(self.min_pause_time - d)
 
