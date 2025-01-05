@@ -230,6 +230,27 @@ class ProController:
             return lambda func: self._on_v_abs_events.__setitem__(joystick, func)
         
 
+
+
+    def rumble(self, duration, strong:int, weak, repeat=1):
+        effect = evdev.ff.Effect(
+            evdev.ecodes.FF_RUMBLE, -1, 0,
+            evdev.ff.Trigger(0, 0),
+            evdev.ff.Replay(duration, 0),
+            evdev.ff.EffectType(
+                ff_rumble_effect=evdev.ff.Rumble(
+                    strong_magnitude=strong, 
+                    weak_magnitude=weak # 0xfff
+                    ))
+        )
+        e_id = self._device.upload_effect(effect),
+        self._device.write(
+            evdev.ecodes.EV_FF,
+            e_id,
+            repeat
+        )
+        time.sleep(duration/1000)
+        self._device.erase_effect(e_id)
     
     # properties
     @property
