@@ -35,6 +35,7 @@ class RawJoystick:
     def __str__(self):
         return self.name
     
+    
 class Joystick:
     def __init__(self, name: str, x: RawJoystick, y: RawJoystick):
         self.name = name
@@ -231,7 +232,7 @@ class ProController:
         
 
 
-
+    # in progress...
     def rumble(self, duration, strong:int, weak, repeat=1):
         effect = evdev.ff.Effect(
             evdev.ecodes.FF_RUMBLE, -1, 0,
