@@ -3,7 +3,8 @@ import time
 from typing import Callable
 
 
-
+def list_devices() -> list[str]:
+    return [evdev.InputDevice(d).name for d in evdev.list_devices()]
 
 class UnsupportedControllerError(Exception): pass
 
@@ -15,7 +16,7 @@ class Key:
         self.pressed = False
 
     def __str__(self):
-        return self.name
+        return f"{self.name}: {self.pressed}"
     
     def __bool__(self):
         return self.pressed
